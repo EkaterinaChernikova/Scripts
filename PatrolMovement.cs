@@ -16,7 +16,7 @@ public class PatrolMovement : MonoBehaviour
 
         for (int i = 0; i < _placesGroup.childCount; i++)
         {
-            _arrayPlaces[i] = _placesGroup.GetChild(i).GetComponent<Transform>();
+            _arrayPlaces[i] = _placesGroup.GetChild(i);
         }
 
         _targetPlace = _arrayPlaces[_placeNumber];
@@ -35,13 +35,7 @@ public class PatrolMovement : MonoBehaviour
 
     private void SetNextPlace()
     {
-        _placeNumber++;
-
-        if (_placeNumber == _arrayPlaces.Length)        
-        {
-            _placeNumber = 0;
-        }
-
+        _placeNumber = _placeNumber++ % _arrayPlaces.Length;
         _targetPlace = _arrayPlaces[_placeNumber];
         transform.LookAt(_targetPlace);
     }

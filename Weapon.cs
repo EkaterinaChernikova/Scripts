@@ -1,15 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class FireController : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Rigidbody _bulletPrefab;
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private float _reload;
 
     private Transform _target;
     private Vector3 _direction;
-    private GameObject _newBullet;
+    private Rigidbody _newBullet;
     private WaitForSeconds _fireDelay;
 
     private void Start()
@@ -23,10 +23,10 @@ public class FireController : MonoBehaviour
         while (true)
         {
             _direction = (_target.position - transform.position).normalized;
-            _newBullet = Instantiate(_bullet, transform.position + _direction, Quaternion.identity);
+            _newBullet = Instantiate(_bulletPrefab, transform.position + _direction, Quaternion.identity);
 
-            _newBullet.GetComponent<Rigidbody>().transform.up = _direction;
-            _newBullet.GetComponent<Rigidbody>().velocity = _direction * _bulletSpeed;
+            _newBullet.transform.up = _direction;
+            _newBullet.velocity = _direction * _bulletSpeed;
 
             yield return _fireDelay;
         }
